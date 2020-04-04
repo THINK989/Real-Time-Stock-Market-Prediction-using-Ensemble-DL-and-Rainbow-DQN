@@ -110,5 +110,3 @@ visualize_data()
 
 
 
-# 9:15 AM to 3:30 PM‎: ‎Normal Trading Session	3:40 PM to 4:00 PM‎: ‎Post-Closing Session
-# 3:30 PM to 3:40 PM‎: ‎Closing Price Calculation	9:00 AM to 9:15 AM‎: ‎Pre-Opening Session

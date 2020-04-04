@@ -27,7 +27,7 @@ from tqdm import tqdm
 from alpha_vantage.timeseries import TimeSeries
 import pandas as pd
 from matplotlib import style
-from eval import *
+from rainbow import *
 from matplotlib import animation
 sns.set()
 
@@ -462,7 +462,7 @@ def graphData(stock,MA1,MA2,interval):
 			results_backup = results 
 			# results_backup_lstm = results_LSTM
 			# results_backup_gru = results_GRU
-			main(temp, 10, "model_debug_20", True)
+			# main(temp, 10, "model_debug_20", True)
 			#print('Results Leng:-', len(results[0]))
 			prev_date = date
 			ax1.axvline(x=date[-1], color = 'r',linewidth=2)
