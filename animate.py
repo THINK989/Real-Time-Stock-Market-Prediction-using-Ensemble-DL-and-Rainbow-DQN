@@ -20,7 +20,6 @@ import tensorflow as tf
 import matplotlib
 import pickle 
 import pylab
-import seaborn as sns
 from sklearn.preprocessing import MinMaxScaler
 from datetime import timedelta
 from tqdm import tqdm
@@ -29,7 +28,7 @@ import pandas as pd
 from matplotlib import style
 from rainbow import *
 from matplotlib import animation
-sns.set()
+
 
 
 
