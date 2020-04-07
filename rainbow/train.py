@@ -118,7 +118,7 @@ if __name__ == "__main__":
 		strategy = args["--strategy"]
 		window_size = 10
 		batch_size = 32
-		ep_count = 40
+		ep_count = 30
 		model_name = args["--model-name"]
 		pretrained = args["--pretrained"]
 		debug = args["--debug"]

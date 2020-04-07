@@ -35,21 +35,21 @@ from trading_bot.utils import (
 )
 
 
-def main(eval_stock, window_size, model_name, debug):
+def main(eval_stock, window_size, model_name, debug, manual_run):
     """ Evaluates the stock trading bot.
     Please see https://arxiv.org/abs/1312.5602 for more details.
 
     Args: [python eval.py --help]
     """  
-    #use this when running animate.py  
-    # data = eval_stock
-    # use this when running this file independently
-    data = get_stock_data(eval_stock)
+    if type(eval_stock) == str:
+        data = get_stock_data(eval_stock)
+    elif type(eval_stock) == list:
+        data = eval_stock
     initial_offset = data[1] - data[0]
 
     # Single Model Evaluation
     if model_name is not None:
-        agent = Agent(window_size, pretrained=True, model_name=model_name)
+        agent = Agent(window_size, pretrained=True, model_name=model_name, manual = manual_run)
         profit, _ = evaluate_model(agent, data, window_size, debug)
         show_eval_result(model_name, profit, initial_offset)
         
@@ -70,11 +70,11 @@ if __name__ == "__main__":
     window_size = int(args["--window-size"])
     model_name = args["--model-name"]
     debug = args["--debug"]
-
+    manual_run = True
     coloredlogs.install(level="DEBUG")
     switch_k_backend_device()
 
     try:
-        main(eval_stock, window_size, model_name, debug)
+        main(eval_stock, window_size, model_name, debug, manual_run)
     except KeyboardInterrupt:
         print("Aborted")

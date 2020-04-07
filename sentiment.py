@@ -2,7 +2,13 @@ import requests
 from bs4 import BeautifulSoup
 import json
 
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+
+
 news_headlines = []
+# Create a SentimentIntensityAnalyzer object. 
+sid_obj = SentimentIntensityAnalyzer() 
+
 def print_headlines(response_text):
     soup = BeautifulSoup(response_text, 'lxml')
     headlines = soup.find_all(attrs={"itemprop": "headline"})
@@ -23,20 +29,28 @@ def get_headers():
         "x-requested-with": "XMLHttpRequest"
     }
 
+def main():
+    global news_headlines
+    url = 'https://inshorts.com/en/read'
+    response = requests.get(url)
+    print_headlines(response.text)
+    scores = []
+    # get more news
+    url = 'https://inshorts.com/en/ajax/more_news'
+    news_offset = "apwuhnrm-1"
 
-url = 'https://inshorts.com/en/read'
-response = requests.get(url)
-print_headlines(response.text)
+    for i in range(0,3):
+        response = requests.post(url, data={"category": "", "news_offset": news_offset}, headers=get_headers())
+        response_json = json.loads(response.text)
+        print_headlines(response_json["html"])
+        news_offset = response_json["min_news_id"]
 
-# get more news
-url = 'https://inshorts.com/en/ajax/more_news'
-news_offset = "apwuhnrm-1"
-
-for i in range(0,3):
-    response = requests.post(url, data={"category": "", "news_offset": news_offset}, headers=get_headers())
-    response_json = json.loads(response.text)
-    print_headlines(response_json["html"])
-    news_offset = response_json["min_news_id"]
-
-news_headlines = news_headlines[::-1]
-print(news_headlines)
+    news_headlines = news_headlines[::-1]
+    news_headlines = news_headlines[5:]
+    for i in news_headlines:
+        # polarity_scores method of SentimentIntensityAnalyzer 
+        # oject gives a sentiment dictionary. 
+        # which contains pos, neg, neu, and compound scores. 
+        sentiment_dict = sid_obj.polarity_scores(i)
+        scores.append(sentiment_dict['compound'])
+    return scores

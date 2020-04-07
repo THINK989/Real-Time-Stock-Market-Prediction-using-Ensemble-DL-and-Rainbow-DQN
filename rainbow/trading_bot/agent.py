@@ -5,7 +5,6 @@ Copyright (c) 2018 Prabhsimran Singh
 Licensed under the MIT License (see LICENSE for details)
 Written by Prabhsimran Singh
 """
-
 import random
 from collections import deque
 import heapq
@@ -38,7 +37,7 @@ def huber_loss(y_true, y_pred, clip_delta=1.0):
 class Agent:
     """ Stock Trading Bot """
 
-    def __init__(self, state_size, strategy="t-dqn", reset_every=1000, pretrained=False, model_name=None):
+    def __init__(self, state_size, strategy="t-dqn", reset_every=1000, pretrained=False, model_name=None, manual = False):
         self.strategy = strategy
 
         # agent config
@@ -75,7 +74,7 @@ class Agent:
         self.optimizer = Adam(lr=self.learning_rate)
 
         if pretrained and self.model_name is not None:
-            self.model = self.load()
+            self.model = self.load(manual)
         else:
             self.model = self._model()
 
@@ -284,5 +283,8 @@ class Agent:
     def save(self, episode):
         self.model.save("models/{}_{}".format(self.model_name, episode))
 
-    def load(self):
-        return load_model("models/" + self.model_name,custom_objects={'NoisyDense': NoisyDense})
+    def load(self, manual):
+        if manual:
+            return load_model( 'models/' + self.model_name,custom_objects={'NoisyDense': NoisyDense})
+        else:
+            return load_model( 'rainbow/models/' + self.model_name,custom_objects={'NoisyDense': NoisyDense})
