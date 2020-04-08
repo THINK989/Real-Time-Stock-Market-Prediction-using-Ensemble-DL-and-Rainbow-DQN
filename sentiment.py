@@ -29,7 +29,7 @@ def get_headers():
         "x-requested-with": "XMLHttpRequest"
     }
 
-def main():
+def news2sentiment():
     global news_headlines
     url = 'https://inshorts.com/en/read'
     response = requests.get(url)
@@ -45,8 +45,9 @@ def main():
         print_headlines(response_json["html"])
         news_offset = response_json["min_news_id"]
 
+    news_headlines = news_headlines[:100]
     news_headlines = news_headlines[::-1]
-    news_headlines = news_headlines[5:]
+
     for i in news_headlines:
         # polarity_scores method of SentimentIntensityAnalyzer 
         # oject gives a sentiment dictionary. 

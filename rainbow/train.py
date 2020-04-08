@@ -3,25 +3,25 @@
 Script for training Stock Trading Bot.
 
 Usage:
-	train.py <train-stock> <val-stock> [--strategy=<strategy>]
-		[--window-size=<window-size>] [--batch-size=<batch-size>]
-		[--episode-count=<episode-count>] [--model-name=<model-name>]
-		[--pretrained] [--debug]
+  train.py <train-stock> <val-stock> [--strategy=<strategy>]
+    [--window-size=<window-size>] [--batch-size=<batch-size>]
+    [--episode-count=<episode-count>] [--model-name=<model-name>]
+    [--pretrained] [--debug]
 
 Options:
-	--strategy=<strategy>             Q-learning strategy to use for training the network. Options:
-																			`dqn` i.e. Vanilla DQN,
-																			`t-dqn` i.e. DQN with fixed target distribution,
-																			`double-dqn` i.e. DQN with separate network for value estimation. [default: t-dqn]
-	--window-size=<window-size>       Size of the n-day window stock data representation
-																		used as the feature vector. [default: 10]
-	--batch-size=<batch-size>         Number of samples to train on in one mini-batch
-																		during training. [default: 32]
-	--episode-count=<episode-count>   Number of trading episodes to use for training. [default: 50]
-	--model-name=<model-name>         Name of the pretrained model to use. [default: model_debug]
-	--pretrained                      Specifies whether to continue training a previously
-																		trained model (reads `model-name`).
-	--debug                           Specifies whether to use verbose logs during eval operation.
+  --strategy=<strategy>             Q-learning strategy to use for training the network. Options:
+                                      `dqn` i.e. Vanilla DQN,
+                                      `t-dqn` i.e. DQN with fixed target distribution,
+                                      `double-dqn` i.e. DQN with separate network for value estimation. [default: t-dqn]
+  --window-size=<window-size>       Size of the n-day window stock data representation
+                                    used as the feature vector. [default: 10]
+  --batch-size=<batch-size>         Number of samples to train on in one mini-batch
+                                    during training. [default: 32]
+  --episode-count=<episode-count>   Number of trading episodes to use for training. [default: 50]
+  --model-name=<model-name>         Name of the pretrained model to use. [default: model_debug]
+  --pretrained                      Specifies whether to continue training a previously
+                                    trained model (reads `model-name`).
+  --debug                           Specifies whether to use verbose logs during eval operation.
 """
 
 """
@@ -85,27 +85,27 @@ def main(train_stock, val_stock, window_size, batch_size, ep_count,
 		# To be shifted to Axis 1
 		ax1 = fig.add_subplot(gs[0, 0])
 		ax1.plot(range(len(train_loss)), train_loss, color='purple', label='loss')
-		ax1.legend(loc=0, ncol=2, prop={'size':10}, fancybox=True, borderaxespad=0.)
-		ax1.set_xlabel('Epochs')
-		ax1.set_ylabel('Train Loss')
-		ax1.set_title('Loss w.r.t. Epochs')
+		ax1.legend(loc=0, ncol=2, prop={'size':20}, fancybox=True, borderaxespad=0.)
+		ax1.set_xlabel('Epochs', size=20)
+		ax1.set_ylabel('Train Loss', size=20)
+		ax1.set_title('Loss w.r.t. Epochs', size=20)
 
 		# To be shifted to Axis 2
 		ax2 = fig.add_subplot(gs[0, 1])
 		ax2.plot(range(len(train_roi)),train_roi, color = 'crimson', label='train')
 		ax2.plot(range(len(valid_roi)), valid_roi, color='olive', label='val')
-		ax2.legend(loc=0, ncol=2, prop={'size':10}, fancybox=True, borderaxespad=0.)
-		ax2.set_ylabel('Return of Investment($)')
-		ax2.set_xlabel('Epochs')
-		ax2.set_title('Train and Valid ROI w.r.t. Epochs')
+		ax2.legend(loc=0, ncol=2, prop={'size':20}, fancybox=True, borderaxespad=0.)
+		ax2.set_ylabel('Return of Investment($)', size=20)
+		ax2.set_xlabel('Epochs', size=20)
+		ax2.set_title('Train and Valid ROI w.r.t. Epochs', size=20)
 
 		# To be shifted to Axis 3
 		ax3 = fig.add_subplot(gs[1, :])
 		ax3.plot(range(len(final_rewards)),final_rewards, color='red', label = 'Reward of Rainbow DQN')
-		ax3.set_xlabel('Episodes')
-		ax3.set_ylabel('Rewards')
-		ax3.set_title('Reward w.r.t. episodes')
-		ax3.legend(loc=0, ncol=2, prop={'size':10}, fancybox=True, borderaxespad=0.)
+		ax3.set_xlabel('Episodes', size=20)
+		ax3.set_ylabel('Rewards', size=20)
+		ax3.set_title('Reward w.r.t. episodes', size=20)
+		ax3.legend(loc=0, ncol=2, prop={'size':20}, fancybox=True, borderaxespad=0.)
 
 		plt.show()
 

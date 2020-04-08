@@ -28,7 +28,7 @@ import pandas as pd
 from matplotlib import style
 from eval import main
 from matplotlib import animation
-
+from sentiment import news2sentiment
 
 
 
@@ -37,9 +37,9 @@ style.use('fivethirtyeight')
 matplotlib.rcParams.update({'font.size': 9})
 
 # Go to https://www.alphavantage.co/support/#api-key
-# Generate the key
+# Generate the key 1TYVS0JD8DTD2H9O
 #Put your key in key parameter
-ts = TimeSeries(key='1TYVS0JD8DTD2H9O',output_format='pandas')
+ts = TimeSeries(key='96FB5MR6YB0T07OU',output_format='pandas')
 count = -1
 
 
@@ -72,13 +72,15 @@ learning_rate = 0.01
 
 
 def preprocess_data(data):
+	# df_score = pd.DataFrame(scores)
+	# data = pd.concat([data, df_score], axis=1)
+	# print(data)
 	global minmax_for
-	minmax_for = MinMaxScaler().fit(data.iloc[:, 3:4].astype('float32')) # Close index
+	minmax_for = MinMaxScaler().fit(data.iloc[:, 3:5].astype('float32')) # Close index
 	global df_log
-	df_log = minmax_for.transform(data.iloc[:, 3:4].astype('float32')) # Close index
-
+	df_log = minmax_for.transform(data.iloc[:, 3:5].astype('float32')) # Close index
 	df_log = pd.DataFrame(df_log)
-
+	
 	return df_log
 
 class Model_LSTM:
@@ -167,7 +169,7 @@ def anchor(signal, weight):
 
 def forecast_LSTM():
 
-	tf.reset_default_graph()
+	tf.compat.v1.reset_default_graph()
 	modelnn = Model_LSTM(
 		learning_rate, num_layers, df_log.shape[1], size_layer, df_log.shape[1], dropout_rate
 	)
@@ -184,7 +186,9 @@ def forecast_LSTM():
 			batch_x = np.expand_dims(
 				df_train.iloc[k : index, :].values, axis = 0
 			)
+			# print('batch_x: -', batch_x)
 			batch_y = df_train.iloc[k + 1 : index + 1, :].values
+			# print('batch_y: -', batch_y)
 			logits, last_state, _, loss = sess.run(
 				[modelnn.logits, modelnn.last_state, modelnn.optimizer, modelnn.cost],
 				feed_dict = {
@@ -252,7 +256,7 @@ def forecast_LSTM():
 	return deep_future
 
 def forecast_GRU():
-    tf.reset_default_graph()
+    tf.compat.v1.reset_default_graph()
     modelnn = Model_GRU(
         learning_rate, num_layers, df_log.shape[1], size_layer, df_log.shape[1], dropout_rate
     )
@@ -416,8 +420,10 @@ def graphData(stock,MA1,MA2,interval):
 		# data = data.iloc[::-1]
 		data['date'] = data.index
 		data['date'] = data['date'].map(mdates.date2num)
+
 		#print(data)
 		global df_train
+		# scores = news2sentiment()
 		df_train = preprocess_data(data)
 		#print('Data Frame:-',df_train)
 		
@@ -462,7 +468,7 @@ def graphData(stock,MA1,MA2,interval):
 		# results_backup_lstm = results_LSTM
 		# results_backup_gru = results_GRU
 		manual_run = False
-		main(temp, 10, "model_noisynstepperdddqn_20", True, manual_run)
+		main(temp, 10, "None_21", True, manual_run)
 		#print('Results Leng:-', len(results[0]))
 		prev_date = date
 		ax1.axvline(x=date[-1], color = 'r',linewidth=2)
@@ -564,7 +570,7 @@ def graphData(stock,MA1,MA2,interval):
 	# plt.show()
 
 	## To save every plot
-	# fig.savefig('test_image/example'+str(datetimeobj.hour)+'_'+str(datetimeobj.minute) +'_'+str(datetimeobj.second)+'.png',facecolor=fig.get_facecolor())
+	fig.savefig('test_image/example'+str(datetimeobj.hour)+'_'+str(datetimeobj.minute) +'_'+str(datetimeobj.second)+'.png',facecolor=fig.get_facecolor())
 	   
 	# except Exception as e:
 	# 	print('main loop',str(e))
@@ -588,7 +594,7 @@ while True:
 		interval = interval_period()
 
 	ani = animation.FuncAnimation(fig, animate, interval = 60000*interval)
-
+	ani.event_source.start()
 	if interval == 1:
 		print('Plot will update every '+str(interval)+' minute')
 	else:
