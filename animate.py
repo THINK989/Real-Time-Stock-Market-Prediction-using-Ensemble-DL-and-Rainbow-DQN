@@ -60,6 +60,7 @@ Class Model_LSTM: - Remove Deprication Warnings
 Class Model_GRU: - Remove Deprication Warnings  
 def forecast_LSTM(): - Remove Deprication Warnings 
 def forecast_GRU(): - Remove Deprication Warnings 
+Added 2 more parameters ['Volume','Sentiment'] to the networks 
 """
 simulation_size = 1
 num_layers = 1
@@ -71,16 +72,14 @@ test_size = 10
 learning_rate = 0.01
 
 
-def preprocess_data(data):
-	# df_score = pd.DataFrame(scores)
-	# data = pd.concat([data, df_score], axis=1)
-	# print(data)
+def preprocess_data(data, scores):
+	df_score = pd.DataFrame(scores)
+	data = data.join(df_score.set_index(data.index))
 	global minmax_for
-	minmax_for = MinMaxScaler().fit(data.iloc[:, 3:5].astype('float32')) # Close index
+	minmax_for = MinMaxScaler().fit(data.iloc[:,[3,4,6]].astype('float32')) # Close index, Volume and Sentiment
 	global df_log
-	df_log = minmax_for.transform(data.iloc[:, 3:5].astype('float32')) # Close index
+	df_log = minmax_for.transform(data.iloc[:,[3,4,6]].astype('float32')) # Close index, Volume and Sentiment
 	df_log = pd.DataFrame(df_log)
-	
 	return df_log
 
 class Model_LSTM:
@@ -423,8 +422,8 @@ def graphData(stock,MA1,MA2,interval):
 
 		#print(data)
 		global df_train
-		# scores = news2sentiment()
-		df_train = preprocess_data(data)
+		scores = news2sentiment()
+		df_train = preprocess_data(data, scores)
 		#print('Data Frame:-',df_train)
 		
 	except Exception as e:
@@ -468,7 +467,7 @@ def graphData(stock,MA1,MA2,interval):
 		# results_backup_lstm = results_LSTM
 		# results_backup_gru = results_GRU
 		manual_run = False
-		main(temp, 10, "None_21", True, manual_run)
+		main(temp, 10, "model_noisynstepperdddqn_20", True, manual_run)
 		#print('Results Leng:-', len(results[0]))
 		prev_date = date
 		ax1.axvline(x=date[-1], color = 'r',linewidth=2)
