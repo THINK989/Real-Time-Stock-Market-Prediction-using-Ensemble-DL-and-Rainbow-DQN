@@ -49,7 +49,7 @@ def get_stock_data(stock_file):
     """Reads stock data from csv file
     """
     df = pd.read_csv(stock_file, encoding ='UTF-8')
-    return list(df['4. close'])
+    return list(df['Adj Close'])
 
 
 def switch_k_backend_device():

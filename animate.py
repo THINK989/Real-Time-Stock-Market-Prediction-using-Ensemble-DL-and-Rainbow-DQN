@@ -411,23 +411,23 @@ def graphData(stock,MA1,MA2,interval):
 	'''
 		Use this to dynamically pull a stock:
 	'''
-	try:
+	# try:
 		
-		print('Currently Pulling',stock)
-		data, meta_data = ts.get_intraday(symbol=stock,interval=str(interval)+'min')
-		# data.to_csv('data/NSEI1min.csv')
-		# data = data.iloc[::-1]
-		data['date'] = data.index
-		data['date'] = data['date'].map(mdates.date2num)
+	print('Currently Pulling',stock)
+	data, meta_data = ts.get_intraday(symbol=stock,interval=str(interval)+'min')
+	# data.to_csv('data/NSEI1min.csv')
+	# data = data.iloc[::-1]
+	data['date'] = data.index
+	data['date'] = data['date'].map(mdates.date2num)
 
-		#print(data)
-		global df_train
-		scores = news2sentiment()
-		df_train = preprocess_data(data, scores)
-		#print('Data Frame:-',df_train)
-		
-	except Exception as e:
-		print(str(e), 'failed to pull pricing data')
+	#print(data)
+	global df_train
+	scores = news2sentiment()
+	df_train = preprocess_data(data, scores)
+	#print('Data Frame:-',df_train)
+	
+	# except Exception as e:
+	# 	print(str(e), 'failed to pull pricing data')
 
 	# try:
 	## preparation for candlestick
