@@ -1,6 +1,6 @@
 # Rainbow DQN Agent
 
-This section of the repository contains an implmentation of Rainbow DQN Agent for predicting buy/sell signals on a stock trend. 
+This section of the repository contains an implementation of Rainbow DQN Agent for predicting buy/sell signals on a stock trend. 
 
 ## Architecture
 
@@ -23,13 +23,7 @@ You can download Historical Financial data from [Yahoo! Finance](https://ca.fina
 
 ## Getting Started
 
-In order to use this project, you'll need to install the required python packages:
-
-```bash
-pip install -r requirements.txt
-```
-
-Now you can open up a terminal and start training the agent:
+You can open up a terminal and start training the agent:
 
 ```bash
 python train.py data/GOOG.csv data/GOOG_2018.csv --strategy double-dqn
