@@ -32,6 +32,7 @@ def save_nifty50_tickers():
 
 #Get 1 min data for each symbol within a period of 7days
 def get_data_from_yahoo(reload_nifty50 = False):
+
 	if reload_nifty50:
 		tickers = save_nifty50_tickers()
 	else:
@@ -55,6 +56,7 @@ def get_data_from_yahoo(reload_nifty50 = False):
 
 # Join the Adj Close columns of all the csv file into single dataframe replace the name with ticker
 def compile_data():
+	get_data_from_yahoo()
 	with open('NIFTY_50.pickle', 'rb') as f:
 		tickers = pickle.load(f)
 	main_df = pd.DataFrame()

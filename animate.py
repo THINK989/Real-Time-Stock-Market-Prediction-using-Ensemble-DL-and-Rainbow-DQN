@@ -405,9 +405,9 @@ def bytespdate2num(fmt, encoding='utf-8'):
 
 def graphData(stock,MA1,MA2,interval):
 
-	global data
+	
 	fig.clf()
-
+	global data
 	'''
 		Use this to dynamically pull a stock:
 	'''
@@ -584,18 +584,22 @@ def interval_period():
 	return interval_check
 
 
-while True:
+def predict():
 	stock = input('Stock to plot: ')
 	interval = interval_period() 
 	validator = [1,5,15,30]
 	while interval not in validator:
 		print('Choose any one from the given options')
 		interval = interval_period()
+	return stock, interval
 
+while True:
+	stock,interval = predict()
 	ani = animation.FuncAnimation(fig, animate, interval = 60000*interval)
-	ani.event_source.start()
+	# ani.event_source.start()
+	plt.show()
 	if interval == 1:
 		print('Plot will update every '+str(interval)+' minute')
 	else:
 		print('Plot will update every '+str(interval)+' minutes')
-	plt.show()
+	
