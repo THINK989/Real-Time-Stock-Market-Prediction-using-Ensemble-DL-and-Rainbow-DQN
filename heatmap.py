@@ -56,7 +56,7 @@ def get_data_from_yahoo(reload_nifty50 = False):
 
 # Join the Adj Close columns of all the csv file into single dataframe replace the name with ticker
 def compile_data():
-	get_data_from_yahoo()
+	get_data_from_yahoo(True)
 	with open('NIFTY_50.pickle', 'rb') as f:
 		tickers = pickle.load(f)
 	main_df = pd.DataFrame()
