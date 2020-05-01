@@ -33,9 +33,9 @@ style.use('fivethirtyeight')
 matplotlib.rcParams.update({'font.size': 9})
 
 # Go to https://www.alphavantage.co/support/#api-key
-# Generate the key 1TYVS0JD8DTD2H9O
+# Generate the key
 #Put your key in key parameter
-ts = TimeSeries(key='96FB5MR6YB0T07OU',output_format='pandas')
+ts = TimeSeries(key='',output_format='pandas')
 count = -1
 test_size = 10
 

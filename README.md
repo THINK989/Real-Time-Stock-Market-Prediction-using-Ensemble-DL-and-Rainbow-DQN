@@ -27,9 +27,15 @@ git clone --depth 1 https://github.com/THINK989/Real-Time-Stock-Market-Predictio
 ```
 pip install -r requirements.txt
 ```
+- Get an Alpha Vantage API
+To run ```animate.py``` you require a free [Alpha Vantage API](https://www.alphavantage.co/support/#api-key). 
+Enter the key in ```key=''``` parameter inside the animate.py file 
+``` 
+ts = TimeSeries(key='',output_format='pandas')
+```
 - Run python script
 
-To vizualize the forecast 
+To vizualize the forecast. Remember the data pulled by the API will not update the plot if the market is closed. 
 ```
 python animate.py
 ```
@@ -52,7 +58,7 @@ rainbow/LICENSE
 ```
 for thier independent code usage. 
 
-## Acknowledgement
+## Acknowledgements
 
 - [@huseinzol05](https://github.com/huseinzol05/) for deep learning models
 - [@sentdex](https://www.youtube.com/channel/UCfzlCWGWYyIQ0aLC5w48gBQ) for plotting tutorials
