@@ -27,8 +27,9 @@ git clone --depth 1 https://github.com/THINK989/Real-Time-Stock-Market-Predictio
 ```
 pip install -r requirements.txt
 ```
-- Get an Alpha Vantage API
-To run ```animate.py``` you require a free [Alpha Vantage API](https://www.alphavantage.co/support/#api-key). 
+- Get an Alpha Vantage API key
+
+To run ```animate.py``` you require a free [Alpha Vantage API Key](https://www.alphavantage.co/support/#api-key). 
 Enter the key in ```key=''``` parameter inside the animate.py file 
 ``` 
 ts = TimeSeries(key='',output_format='pandas')
