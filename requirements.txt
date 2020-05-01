@@ -18,3 +18,4 @@ requests==2.18.4
 simplejson==3.17.0
 yfinance==0.1.54
 pandas-datareader==0.8.1
+vaderSentiment==3.3.1
