@@ -1,7 +1,7 @@
 # Real Time Stock Market Forecasting
 
-This repository contians an implementation of ensemble deep learning models to forecast or predict stock price. We use Alpha Vantage API
-to pull stock data(open,high,low,close,volume) and scrape news headlines from inshorts to perform setiment analysis.
+This repository contains an implementation of ensemble deep learning models to forecast or predict stock price. We used Alpha Vantage 
+API to pull stock data(open,high,low,close,volume) and scraped news headlines from inshorts to perform sentiment analysis.
 
 The code and the images of this repository are free to use as regulated by the licence and subject to proper attribution:
 ```
