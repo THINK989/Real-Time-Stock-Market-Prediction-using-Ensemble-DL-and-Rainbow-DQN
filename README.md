@@ -8,6 +8,9 @@ The code and the images of this repository are free to use as regulated by the l
 Shah, Raj and Tambe, Ashutosh and Bhatt, Tej and Rote, Uday, Real-Time Stock Market Forecasting using Ensemble Deep Learning and Rainbow DQN. 
 Available at SSRN: https://ssrn.com/abstract=3586788 or http://dx.doi.org/10.2139/ssrn.3586788.
 ```
+## Architecture
+![](imgs/arch.PNG)
+
 
 ## Getting Started
 
