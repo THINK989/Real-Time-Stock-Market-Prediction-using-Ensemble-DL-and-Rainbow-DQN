@@ -1,10 +1,3 @@
-"""
-Model and Forecast function
-The LSTM,GRU model and forecast function implementation.
-Copyright (c) 2018 HUSEIN ZOLKEPLI(huseinzol05)
-Licensed under the Apache License Version 2.0 (see LICENSE for details)
-Written by HUSEIN ZOLKEPLI
-"""
 import sys
 sys.path.insert(0,'rainbow/')
 import warnings
