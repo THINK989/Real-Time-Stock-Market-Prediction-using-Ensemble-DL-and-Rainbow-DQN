@@ -268,7 +268,6 @@ def graphData(stock,MA1,MA2,interval):
 	# except Exception as e:
 	# 	print('main loop',str(e))
 
-fig = plt.figure(figsize =(20,9))
 
 def animate(i):
 	graphData(stock,10,50,interval)
@@ -288,6 +287,7 @@ def predict():
 	return stock, interval
 
 while True:
+	fig = plt.figure(figsize =(20,9))
 	stock,interval = predict()
 	ani = animation.FuncAnimation(fig, animate, interval = 60000*interval)
 	# ani.event_source.start()
@@ -296,4 +296,5 @@ while True:
 		print('Plot will update every '+str(interval)+' minute')
 	else:
 		print('Plot will update every '+str(interval)+' minutes')
+	count = -1
 	
