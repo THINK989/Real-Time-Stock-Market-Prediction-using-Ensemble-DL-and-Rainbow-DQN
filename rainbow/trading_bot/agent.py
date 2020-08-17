@@ -37,7 +37,7 @@ def huber_loss(y_true, y_pred, clip_delta=1.0):
 class Agent:
     """ Stock Trading Bot """
 
-    def __init__(self, state_size, strategy="t-dqn", reset_every=1000, pretrained=False, model_name=None, manual = False):
+    def __init__(self, state_size, strategy="t-dqn", reset_every=10000, pretrained=False, model_name=None, manual = False):
         self.strategy = strategy
 
         # agent config
@@ -175,7 +175,9 @@ class Agent:
         # action_idx = np.argmax(q)
         
         # return action_idx
-
+        # Update n_iter to hard updating target model eventually
+        self.n_iter += 1
+        
         action_probs = self.model.predict(state)
         return np.argmax(action_probs[0])
 
